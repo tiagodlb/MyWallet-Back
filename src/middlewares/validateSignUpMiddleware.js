@@ -1,4 +1,4 @@
-import regSchema from "../schemas/regSchema";
+import regSchema from "../schemas/regSchema.js";
 
 export function validateSignUpMiddleware(req, res, next) {
   const userReg = req.body;

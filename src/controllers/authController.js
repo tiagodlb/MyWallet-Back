@@ -2,7 +2,6 @@ import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
 import { stripHtml } from "string-strip-html";
 import db from "../db.js";
-import { sendStatus } from "express/lib/response";
 
 export async function signUp(req, res) {
   const { name, email, password } = req.body;
@@ -36,7 +35,10 @@ export async function signIn(req, res) {
   try {
     const user = await db.collection("users").findOne({ email: email });
 
-    if (!user) return res.sendStatus(404);
+    if (!user) {
+      return res.sendStatus(404);
+    }
+
     if (bcrypt.compareSync(password, user.password)) {
       const token = uuid();
       await db
@@ -45,12 +47,12 @@ export async function signIn(req, res) {
       const loggedUser = await db
         .collection("session")
         .findOne({ userName: user.name });
-      return res.sendStatus(200).send(loggedUser);
+      return res.status(200).send(loggedUser);
     }
 
     res.sendStatus(401);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.sendStatus(500);
   }
 }

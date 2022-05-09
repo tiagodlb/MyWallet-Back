@@ -9,8 +9,8 @@ registerRouter.use(authMiddleware)
 
 registerRouter.get('/userRegisters', loadSignup);
 
-registerRouter.post('/new-entry',validateSignUpMiddleware, deposit);
+registerRouter.post('/deposit',validateSignUpMiddleware, deposit);
 
-registerRouter.post('/new-exit',validateSignUpMiddleware, withdraw);
+registerRouter.post('/withdraw',validateSignUpMiddleware, withdraw);
 
 export default registerRouter;

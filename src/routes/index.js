@@ -8,3 +8,5 @@ const router = Router();
 router.use(authRouter);
 router.use(registerRouter);
 router.use(signOutRouter);
+
+export default router;

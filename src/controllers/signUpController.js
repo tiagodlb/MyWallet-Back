@@ -1,6 +1,7 @@
 import db from "../db.js";
 import { ObjectId } from "mongodb";
 import dayjs from "dayjs";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 export async function loadSignup(req, res) {
   const token = res.locals.token;
@@ -29,11 +30,11 @@ export async function deposit(req, res) {
     const time = dayjs().locale("pt-br").format("DD/MM");
 
     await db.collection("sign-ups").insertOne({
-      value: Number(value),
-      description: description,
-      isCredit: true,
-      date: time,
-      signupUserId: session.userId,
+      "value": Number(value),
+      "description": description,
+      "isCredit": true,
+      "date": time,
+      "signupUserId": session.userId,
     });
 
     res.sendStatus(201);
@@ -51,11 +52,11 @@ export async function withdraw(req, res) {
     const session = await db.collection("session").findOne({ token });
     const time = dayjs().locale("pt-br").format("DD/MM");
     await db.collection("sign-ups").insertOne({
-      value: -Math.abs(value),
-      description: description,
-      isCredit: false,
-      date: time,
-      signupUserId: session.userId,
+      "value": -Math.abs(value),
+      "description": description,
+      "isCredit": false,
+      "date": time,
+      "signupUserId": session.userId,
     });
 
     res.sendStatus(201);

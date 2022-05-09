@@ -1,4 +1,4 @@
-import db from "../db";
+import db from "../db.js";
 
 export async function authMiddleware(req, res, next) {
   const authorization = req.headers.authorization;
@@ -11,7 +11,7 @@ export async function authMiddleware(req, res, next) {
       return res.sendStatus(401);
     }
 
-    const user = await db.collection("users").findONe({ _id: session.userId });
+    const user = await db.collection("users").findOne({ _id: session.userId });
     if (!user) {
       return res.sendStatus(401);
     }

@@ -1,4 +1,4 @@
-import signInSchema from "../schemas/signInSchema";
+import signInSchema from "../schemas/signInSchema.js";
 export function validateSignInMiddleware(req, res, next) {
   const userSignIn = req.body;
   const validation = signInSchema.validate(userSignIn, { abortEarly: false });
